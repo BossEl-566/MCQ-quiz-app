@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "question": "What is 2 + 2?",
+    "choices": ["3", "4", "5"],
+    "answer": "4"
+  },
+  {
+    "id": 2,
+    "question": "Which planet is closest to the sun?",
+    "choices": ["Venus", "Mercury", "Earth"],
+    "answer": "Mercury"
+  }
+]
