@@ -17,7 +17,7 @@ function App() {
             </div>
             <div>
               <h1 className="text-xl md:text-2xl font-bold">UGASS Elections 2025</h1>
-              <p className="text-xs md:text-sm text-blue-100">University of Ghana Actuarial Students Society</p>
+              <p className="text-xs md:text-sm text-blue-100">University of Ghana Actuarial Statistics Society</p>
             </div>
           </div>
           <div className="hidden md:block bg-blue-500 px-4 py-2 rounded-full shadow-inner">
