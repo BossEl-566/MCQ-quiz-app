@@ -13,9 +13,7 @@ function App() {
           <div className="flex items-center space-x-3">
             <div className="bg-white p-2 rounded-lg shadow">
               {/* Replace with your actual logo */}
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <img src="/ugass.jpg" alt="Logo" className="h-8 w-8" />
             </div>
             <div>
               <h1 className="text-xl md:text-2xl font-bold">UGASS Elections 2025</h1>
@@ -30,7 +28,7 @@ function App() {
         {/* Campaign Banner - full width */}
         <div className="bg-blue-800 py-2 text-center w-full">
           <p className="text-sm md:text-base font-medium text-blue-100">
-            🗳 Vote for <span className="font-bold text-white">Eyan Ebenezer</span> as UGASS Vice President
+            🗳 Vote for <span className="font-bold text-white">Enyan Ebenezer</span> as UGASS Vice President
           </p>
         </div>
       </header>

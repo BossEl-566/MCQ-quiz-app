@@ -129,7 +129,7 @@ export default function Quiz() {
     }
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center p-4 w-full">
         <div className="w-full max-w-2xl bg-white p-8 rounded-2xl shadow-xl">
           <div className="text-center mb-8">
             <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 ${percentage >= 75 ? 'bg-green-100' : percentage >= 50 ? 'bg-yellow-100' : 'bg-red-100'}`}>
@@ -206,9 +206,9 @@ export default function Quiz() {
   const progress = ((currentQuestion) / quizQuestions.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-xl">
-        <div className="mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center p-4 w-full">
+      <div className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-xl">
+        <div className="mb-8">
           <div className="flex justify-between items-center mb-1">
             <span className="text-sm font-medium text-gray-600">Question {currentQuestion + 1} of {quizQuestions.length}</span>
             <span className="text-sm font-medium text-indigo-600">{Math.round(progress)}%</span>
