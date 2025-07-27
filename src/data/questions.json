@@ -10,5 +10,23 @@
     "question": "Which planet is closest to the sun?",
     "choices": ["Venus", "Mercury", "Earth"],
     "answer": "Mercury"
-  }
+  },
+    {
+        "id": 3,
+        "question": "What is the capital of France?",
+        "choices": ["Berlin", "Madrid", "Paris"],
+        "answer": "Paris"
+    },
+    {
+        "id": 4,
+        "question": "What is the largest mammal?",
+        "choices": ["Elephant", "Blue Whale", "Giraffe"],
+        "answer": "Blue Whale"
+    },
+    {
+        "id": 5,
+        "question": "What is the boiling point of water?",
+        "choices": ["100°C", "90°C", "80°C", "120°C"],
+        "answer": "100°C"
+    }
 ]
