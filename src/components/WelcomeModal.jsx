@@ -9,7 +9,7 @@ export default function WelcomeModal({ onClose }) {
           <img
             src="/ebenezer.jpg" 
             alt="Enyan Ebenezer"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
           {/* Campaign badge on image */}
           <div className="absolute bottom-4 left-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg">

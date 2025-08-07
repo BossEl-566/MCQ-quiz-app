@@ -1,9 +1,39 @@
 import React, { useState } from "react";
 import allQuestions from "../data/questions.json";
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
+
+
 
 function getRandomQuestions(all, count) {
   const shuffled = [...all].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
+}
+
+function MathRenderer({ content }) {
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkMath]}
+      rehypePlugins={[rehypeKatex]}
+      components={{
+        // Customize rendering as needed
+        p: ({ node, ...props }) => <p className="mb-4" {...props} />,
+        li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+        math: ({ node, ...props }) => (
+          <div className="my-2">
+            <div {...props} />
+          </div>
+        ),
+        inlineMath: ({ node, ...props }) => (
+          <span className="inline-block" {...props} />
+        )
+      }}
+    >
+      {content}
+    </ReactMarkdown>
+  );
 }
 
 export default function Quiz() {
@@ -11,39 +41,41 @@ export default function Quiz() {
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [writtenAnswer, setWrittenAnswer] = useState("");
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleStartQuiz = () => {
-    if (!numQuestions || numQuestions <= 0 || numQuestions > allQuestions.length) return;
+    if (!numQuestions || numQuestions <= 0 || numQuestions > allQuestions.questions.length) return;
     setIsLoading(true);
     setTimeout(() => {
-      const selected = getRandomQuestions(allQuestions, parseInt(numQuestions));
+      const selected = getRandomQuestions(allQuestions.questions, parseInt(numQuestions));
       setQuizQuestions(selected);
       setIsLoading(false);
-    }, 800); // Simulate loading
+    }, 800);
   };
 
   const handleAnswerSubmit = () => {
     const current = quizQuestions[currentQuestion];
+    const isCorrect = current.type === 'written' ? false : selectedAnswer === current.answer;
 
     setAnswers([
       ...answers,
       { 
-        question: current.question, 
-        selected: selectedAnswer, 
-        correct: current.answer,
-        choices: current.choices 
+        ...current,
+        selected: current.type === 'written' ? writtenAnswer : selectedAnswer,
+        isCorrect
       },
     ]);
 
-    if (selectedAnswer === current.answer) setScore(score + 1);
+    if (isCorrect) setScore(score + 1);
 
     if (currentQuestion + 1 < quizQuestions.length) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer("");
+      setWrittenAnswer("");
     } else {
       setFinished(true);
     }
@@ -52,6 +84,7 @@ export default function Quiz() {
   const handleRestart = () => {
     setCurrentQuestion(0);
     setSelectedAnswer("");
+    setWrittenAnswer("");
     setScore(0);
     setFinished(false);
     setAnswers([]);
@@ -75,7 +108,7 @@ export default function Quiz() {
           </div>
           
           <div className="mb-6 bg-indigo-50 p-4 rounded-lg">
-            <p className="text-sm text-indigo-800 mb-2">📚 There are {allQuestions.length} questions available</p>
+            <p className="text-sm text-indigo-800 mb-2">📚 There are {allQuestions.questions.length} questions available</p>
             <input
               type="number"
               placeholder="How many questions would you like?"
@@ -83,13 +116,13 @@ export default function Quiz() {
               onChange={(e) => setNumQuestions(e.target.value)}
               className="border border-gray-300 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
               min="1"
-              max={allQuestions.length}
+              max={allQuestions.questions.length}
             />
           </div>
           
           <button
             onClick={handleStartQuiz}
-            disabled={isLoading || !numQuestions || numQuestions <= 0 || numQuestions > allQuestions.length}
+            disabled={isLoading || !numQuestions || numQuestions <= 0 || numQuestions > allQuestions.questions.length}
             className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-all duration-300 ${isLoading ? 'bg-indigo-400' : 'bg-indigo-600 hover:bg-indigo-700'} flex items-center justify-center`}
           >
             {isLoading ? (
@@ -130,7 +163,7 @@ export default function Quiz() {
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center p-4 w-full">
-        <div className="w-full max-w-2xl bg-white p-8 rounded-2xl shadow-xl">
+        <div className="w-full max-w-4xl bg-white p-8 rounded-2xl shadow-xl">
           <div className="text-center mb-8">
             <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 ${percentage >= 75 ? 'bg-green-100' : percentage >= 50 ? 'bg-yellow-100' : 'bg-red-100'}`}>
               <span className={`text-3xl font-bold ${resultColor}`}>{percentage}%</span>
@@ -157,32 +190,66 @@ export default function Quiz() {
           <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Question Review</h3>
           <div className="space-y-6">
             {answers.map((ans, index) => (
-              <div key={index} className={`p-4 rounded-lg ${ans.selected === ans.correct ? 'bg-green-50' : 'bg-red-50'}`}>
-                <div className="flex justify-between items-start mb-2">
-                  <p className="font-semibold text-gray-800">{index + 1}. {ans.question}</p>
-                  {ans.selected === ans.correct ? (
+              <div key={index} className={`p-6 rounded-xl ${ans.isCorrect ? 'bg-green-50' : 'bg-red-50'}`}>
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-lg font-bold">
+                    Question {index + 1}: {ans.type === 'written' ? 'Written Answer' : 'Multiple Choice'}
+                    {ans.points && <span className="ml-2 text-sm font-normal text-gray-600">({ans.points} points)</span>}
+                  </h3>
+                  {ans.isCorrect ? (
                     <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Correct</span>
                   ) : (
                     <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Incorrect</span>
                   )}
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
-                  {ans.choices.map((choice, i) => (
-                    <div 
-                      key={i} 
-                      className={`p-2 rounded border ${choice === ans.correct ? 'border-green-300 bg-green-50' : choice === ans.selected ? 'border-red-300 bg-red-50' : 'border-gray-200'}`}
-                    >
-                      {choice}
-                      {choice === ans.correct && (
-                        <span className="ml-2 text-green-600 text-sm">✓ Correct</span>
-                      )}
-                      {choice === ans.selected && choice !== ans.correct && (
-                        <span className="ml-2 text-red-600 text-sm">✗ Your answer</span>
+                <div className="mb-4">
+                  <MathRenderer content={ans.question} />
+                </div>
+                
+                {ans.type === 'written' ? (
+                  <>
+                    <div className="mb-4 p-4 bg-gray-100 rounded-lg">
+                      <h4 className="font-semibold mb-2">Your Answer:</h4>
+                      <p className="whitespace-pre-wrap">{ans.selected || "No answer provided"}</p>
+                    </div>
+                    
+                    <div className="p-4 bg-blue-50 rounded-lg">
+                      <h4 className="font-semibold mb-2">Correct Solution:</h4>
+                      <MathRenderer content={ans.solution} />
+                      
+                      {ans.steps && (
+                        <div className="mt-3">
+                          <h5 className="font-medium mb-1">Grading Steps:</h5>
+                          <ul className="list-disc pl-5 space-y-1 text-sm">
+                            {ans.steps.map((step, i) => (
+                              <li key={i}>
+                                <MathRenderer content={step} />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       )}
                     </div>
-                  ))}
-                </div>
+                  </>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                    {ans.choices.map((choice, i) => (
+                      <div 
+                        key={i} 
+                        className={`p-3 rounded border ${choice === ans.correct ? 'border-green-300 bg-green-50' : choice === ans.selected ? 'border-red-300 bg-red-50' : 'border-gray-200'}`}
+                      >
+                        {choice}
+                        {choice === ans.correct && (
+                          <span className="ml-2 text-green-600 text-sm">✓ Correct</span>
+                        )}
+                        {choice === ans.selected && choice !== ans.correct && (
+                          <span className="ml-2 text-red-600 text-sm">✗ Your answer</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -207,10 +274,13 @@ export default function Quiz() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center p-4 w-full">
-      <div className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-xl">
+      <div className="w-full max-w-4xl bg-white p-8 rounded-2xl shadow-xl">
         <div className="mb-8">
           <div className="flex justify-between items-center mb-1">
-            <span className="text-sm font-medium text-gray-600">Question {currentQuestion + 1} of {quizQuestions.length}</span>
+            <span className="text-sm font-medium text-gray-600">
+              Question {currentQuestion + 1} of {quizQuestions.length}
+              {current.points && <span className="ml-2">({current.points} points)</span>}
+            </span>
             <span className="text-sm font-medium text-indigo-600">{Math.round(progress)}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -221,31 +291,57 @@ export default function Quiz() {
           </div>
         </div>
 
-        <h2 className="text-xl font-bold text-gray-800 mb-6">{current.question}</h2>
-        
-        <div className="space-y-3 mb-8">
-          {current.choices.map((choice, index) => (
-            <button
-              key={index}
-              onClick={() => setSelectedAnswer(choice)}
-              className={`w-full text-left p-4 rounded-lg border transition-all duration-200 ${selectedAnswer === choice ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-indigo-300'}`}
-            >
-              <div className="flex items-center">
-                <div className={`w-5 h-5 rounded-full border flex items-center justify-center mr-3 ${selectedAnswer === choice ? 'border-indigo-500 bg-indigo-500' : 'border-gray-300'}`}>
-                  {selectedAnswer === choice && (
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
-                  )}
-                </div>
-                <span className={selectedAnswer === choice ? 'font-medium text-indigo-700' : 'text-gray-700'}>{choice}</span>
-              </div>
-            </button>
-          ))}
-        </div>
+        {current.type === 'written' ? (
+          <>
+            <div className="mb-6">
+              <MathRenderer content={current.question} />
+            </div>
+            
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Your Solution:
+              </label>
+              <textarea
+                value={writtenAnswer}
+                onChange={(e) => setWrittenAnswer(e.target.value)}
+                className="w-full h-48 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="Show your work here..."
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <h2 className="text-xl font-bold text-gray-800 mb-6">
+              <MathRenderer content={current.question} />
+            </h2>
+            
+            <div className="space-y-3 mb-8">
+              {current.choices.map((choice, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedAnswer(choice)}
+                  className={`w-full text-left p-4 rounded-lg border transition-all duration-200 ${selectedAnswer === choice ? 'border-indigo-500 bg-indigo-50 shadow-md' : 'border-gray-200 hover:border-indigo-300'}`}
+                >
+                  <div className="flex items-center">
+                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center mr-3 ${selectedAnswer === choice ? 'border-indigo-500 bg-indigo-500' : 'border-gray-300'}`}>
+                      {selectedAnswer === choice && (
+                        <div className="w-2 h-2 rounded-full bg-white"></div>
+                      )}
+                    </div>
+                    <span className={selectedAnswer === choice ? 'font-medium text-indigo-700' : 'text-gray-700'}>
+                      <MathRenderer content={choice} />
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
 
         <button
           onClick={handleAnswerSubmit}
-          disabled={!selectedAnswer}
-          className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-all duration-300 ${!selectedAnswer ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700'} flex items-center justify-center`}
+          disabled={current.type === 'mcq' ? !selectedAnswer : !writtenAnswer}
+          className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-all duration-300 ${current.type === 'mcq' ? (!selectedAnswer ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700') : (!writtenAnswer ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700')} flex items-center justify-center`}
         >
           {currentQuestion + 1 === quizQuestions.length ? (
             <>

@@ -1,32 +1,630 @@
-[
-  {
-    "id": 1,
-    "question": "What is 2 + 2?",
-    "choices": ["3", "4", "5"],
-    "answer": "4"
-  },
-  {
-    "id": 2,
-    "question": "Which planet is closest to the sun?",
-    "choices": ["Venus", "Mercury", "Earth"],
-    "answer": "Mercury"
-  },
+{
+  "questions": [
     {
-        "id": 3,
-        "question": "What is the capital of France?",
-        "choices": ["Berlin", "Madrid", "Paris"],
-        "answer": "Paris"
+      "id": 1,
+      "type": "written",
+      "question": "Use the first derivative test to determine intervals of increase/decrease for f(x) = x³ - 3x² + 2.",
+      "solution": "f'(x) = 3x² - 6x = 3x(x-2). Critical points at x=0 and x=2. Test intervals: (-∞,0) f'(-1)=9>0 → increasing; (0,2) f'(1)=-3<0 → decreasing; (2,∞) f'(3)=9>0 → increasing.",
+      "steps": [
+        "Find first derivative f'(x)",
+        "Find critical points by solving f'(x)=0",
+        "Test sign of f'(x) in each interval"
+      ],
+      "points": 5
     },
     {
-        "id": 4,
-        "question": "What is the largest mammal?",
-        "choices": ["Elephant", "Blue Whale", "Giraffe"],
-        "answer": "Blue Whale"
+      "id": 2,
+      "type": "written",
+      "question": "Find all critical points and classify them for f(x) = x⁴ - 8x².",
+      "solution": "f'(x) = 4x³ - 16x = 4x(x² - 4) = 4x(x-2)(x+2); critical points at x = -2, 0, 2. f''(x) = 12x² - 16; f''(-2) = 32 → min, f''(0) = -16 → max, f''(2) = 32 → min.",
+      "steps": [
+        "Find first derivative and solve f'(x) = 0",
+        "Solve for x to find critical points",
+        "Use second derivative test to classify"
+      ],
+      "points": 5
     },
     {
-        "id": 5,
-        "question": "What is the boiling point of water?",
-        "choices": ["100°C", "90°C", "80°C", "120°C"],
-        "answer": "100°C"
+      "id": 3,
+      "type": "written",
+      "question": "Determine points of inflection and concavity for f(x) = ln(x² + 1).",
+      "solution": "f'(x) = 2x/(x²+1); f''(x) = (2(x²+1)-4x²)/(x²+1)² = (2-2x²)/(x²+1)². f''(x)=0 at x=±1. Concave up (-1,1), concave down (-∞,-1)∪(1,∞). Points of inflection at x=±1.",
+      "steps": [
+        "Find first and second derivatives",
+        "Solve f''(x) = 0 for inflection points",
+        "Test concavity in each interval"
+      ],
+      "points": 5
+    },
+    {
+      "id": 4,
+      "type": "written",
+      "question": "Sketch f(x) = x^(2/3)(x-4) indicating local extrema and cusps.",
+      "solution": "Domain: all real numbers. f'(x) = (2/3)x^(-1/3)(x-4) + x^(2/3) = (5x-8)/(3x^(1/3)). Critical points at x=8/5 (f'=0) and x=0 (f' undefined). Cusp at x=0. Local max at x=0, local min at x=8/5.",
+      "steps": [
+        "Find domain",
+        "Find first derivative and critical points",
+        "Analyze behavior at critical points",
+        "Identify cusps where derivative is undefined"
+      ],
+      "points": 6
+    },
+    {
+      "id": 5,
+      "type": "written",
+      "question": "A box with a square base and open top is to hold 32 m³. Minimize the material used.",
+      "solution": "Let base be x×x, height h. Volume V = x²h = 32 → h = 32/x². Surface area A = x² + 4xh = x² + 128/x. A' = 2x - 128/x² = 0 → x³=64 → x=4 m. h=2 m. Minimum material when base is 4×4 m, height 2 m.",
+      "steps": [
+        "Define variables for dimensions",
+        "Express volume constraint",
+        "Express surface area function",
+        "Find critical points",
+        "Verify minimum"
+      ],
+      "points": 6
+    },
+    {
+      "id": 6,
+      "type": "written",
+      "question": "A rectangular garden has 200 m of fencing. Maximize area if one side borders a river and needs no fence.",
+      "solution": "Let sides be x (parallel to river) and y. Perimeter: 2y + x = 200 → x = 200-2y. Area A = xy = y(200-2y) = 200y-2y². A' = 200-4y = 0 → y=50 m. x=100 m. Maximum area is 50×100 = 5000 m².",
+      "steps": [
+        "Define variables for sides",
+        "Express perimeter constraint",
+        "Express area function",
+        "Find critical points",
+        "Verify maximum"
+      ],
+      "points": 5
+    },
+    {
+      "id": 7,
+      "type": "written",
+      "question": "A point moves on a curve such that its x-coordinate increases at 3 m/s. If the curve is y² = 4x, find dy/dt when x = 2.",
+      "solution": "Given dx/dt = 3 m/s. Differentiate implicitly: 2y dy/dt = 4 dx/dt → dy/dt = (2/y)(dx/dt). At x=2, y²=8 → y=±2√2. Thus dy/dt = (2/(±2√2))(3) = ±3/√2 = ±(3√2)/2 m/s.",
+      "steps": [
+        "Differentiate implicitly with respect to t",
+        "Solve for dy/dt",
+        "Find y-coordinate when x=2",
+        "Substitute known values"
+      ],
+      "points": 5
+    },
+    {
+      "id": 8,
+      "type": "written",
+      "question": "A ladder 10 m long leans against a wall. The base slides at 2 m/s. How fast is the top sliding when the base is 6 m away?",
+      "solution": "Let x be distance from wall, y height on wall. x²+y²=100. Differentiate: 2x dx/dt + 2y dy/dt = 0 → dy/dt = (-x/y)(dx/dt). When x=6, y=8. Given dx/dt=2 m/s, dy/dt = (-6/8)(2) = -1.5 m/s (sliding down at 1.5 m/s).",
+      "steps": [
+        "Set up Pythagorean relationship",
+        "Differentiate with respect to t",
+        "Solve for dy/dt",
+        "Find y when x=6",
+        "Substitute known values"
+      ],
+      "points": 5
+    },
+    {
+      "id": 9,
+      "type": "written",
+      "question": "Find absolute max/min of f(x) = x³ - 6x² + 9x on [0,5].",
+      "solution": "f'(x) = 3x² - 12x + 9 = 3(x²-4x+3) = 3(x-1)(x-3). Critical points at x=1,3. Evaluate: f(0)=0, f(1)=4, f(3)=0, f(5)=20. Absolute max at x=5 (f(5)=20), absolute min at x=0 and x=3 (f(0)=f(3)=0).",
+      "steps": [
+        "Find critical points in interval",
+        "Evaluate function at critical points and endpoints",
+        "Identify largest and smallest values"
+      ],
+      "points": 5
+    },
+    {
+      "id": 10,
+      "type": "written",
+      "question": "Use Newton's method to approximate ∛7 with one iteration starting at x₀ = 2.",
+      "solution": "Solve x³-7=0. f(x)=x³-7, f'(x)=3x². Newton's formula: x₁ = x₀ - f(x₀)/f'(x₀) = 2 - (8-7)/12 = 2 - 1/12 ≈ 1.9167.",
+      "steps": [
+        "Define function to find root of",
+        "Compute derivative",
+        "Apply Newton's formula",
+        "Calculate one iteration"
+      ],
+      "points": 4
+    },
+    {
+      "id": 11,
+      "type": "written",
+      "question": "Find equation of tangent line to y = √x ln x at x = 1.",
+      "solution": "At x=1: y=0. y' = (1/(2√x))lnx + √x(1/x) = (lnx)/(2√x) + 1/√x. At x=1: y'=1. Tangent line: y-0=1(x-1) → y=x-1.",
+      "steps": [
+        "Find y-coordinate at x=1",
+        "Compute derivative using product rule",
+        "Evaluate derivative at x=1",
+        "Write point-slope form of line"
+      ],
+      "points": 5
+    },
+    {
+      "id": 12,
+      "type": "written",
+      "question": "Use implicit differentiation to find dy/dx: x³ + y³ = 9xy.",
+      "solution": "Differentiate both sides: 3x² + 3y² dy/dx = 9y + 9x dy/dx. Collect terms: (3y² - 9x) dy/dx = 9y - 3x² → dy/dx = (9y - 3x²)/(3y² - 9x) = (3y - x²)/(y² - 3x).",
+      "steps": [
+        "Differentiate both sides with respect to x",
+        "Collect dy/dx terms",
+        "Factor and solve for dy/dx"
+      ],
+      "points": 5
+    },
+    {
+      "id": 13,
+      "type": "written",
+      "question": "Oil spill radius grows at 2 m/min. At r=50 m, how fast is the area increasing?",
+      "solution": "A = πr² → dA/dt = 2πr dr/dt. Given dr/dt=2 m/min, at r=50: dA/dt = 2π(50)(2) = 200π m²/min.",
+      "steps": [
+        "Relate area to radius",
+        "Differentiate with respect to t",
+        "Substitute known values"
+      ],
+      "points": 4
+    },
+    {
+      "id": 14,
+      "type": "written",
+      "question": "Show that the tangent line to y² = kx at (x₀,y₀) is y₀y = (k/2)(x + x₀).",
+      "solution": "Implicit differentiation: 2y dy/dx = k → dy/dx = k/(2y). Slope at (x₀,y₀) is k/(2y₀). Tangent line: y-y₀ = (k/(2y₀))(x-x₀) → 2y₀(y-y₀) = k(x-x₀) → 2y₀y - 2y₀² = kx - kx₀. Since y₀²=kx₀, this simplifies to y₀y = (k/2)(x + x₀).",
+      "steps": [
+        "Find derivative implicitly",
+        "Compute slope at given point",
+        "Write point-slope form of tangent line",
+        "Simplify using original equation"
+      ],
+      "points": 6
+    },
+    {
+      "id": 15,
+      "type": "written",
+      "question": "Determine where f(x) = x/(x² + 1) has local extrema and classify them.",
+      "solution": "f'(x) = (1(x²+1) - x(2x))/(x²+1)² = (1-x²)/(x²+1)². Critical points at x=±1. f''(x) = [(-2x)(x²+1)² - (1-x²)(2)(x²+1)(2x)]/(x²+1)⁴. f''(1) < 0 → local max at x=1; f''(-1) > 0 → local min at x=-1.",
+      "steps": [
+        "Find first derivative using quotient rule",
+        "Find critical points",
+        "Use second derivative test to classify"
+      ],
+      "points": 5
+    },
+    {
+      "id": 16,
+      "type": "written",
+      "question": "Find dimensions of a cylinder with volume 1000 cm³ that minimizes surface area.",
+      "solution": "V = πr²h = 1000 → h = 1000/(πr²). Surface area A = 2πr² + 2πrh = 2πr² + 2000/r. A' = 4πr - 2000/r² = 0 → r³=500/π → r=(500/π)^(1/3) ≈ 5.419 cm. h = 1000/(π(500/π)^(2/3)) ≈ 10.839 cm.",
+      "steps": [
+        "Express height in terms of radius using volume",
+        "Write surface area function",
+        "Find critical points",
+        "Verify minimum",
+        "Calculate dimensions"
+      ],
+      "points": 6
+    },
+    {
+      "id": 17,
+      "type": "written",
+      "question": "Find the maximum area of a rectangle inscribed under y = 4 - x² on [0,2].",
+      "solution": "Let rectangle have width 2x (from -x to x) and height 4-x². Area A = 2x(4-x²) = 8x-2x³. A' = 8-6x² = 0 → x²=4/3 → x=2/√3. Maximum area A = (4/√3)(4-4/3) = (4/√3)(8/3) = 32/(3√3) ≈ 6.158.",
+      "steps": [
+        "Express area in terms of x",
+        "Find derivative and critical points",
+        "Verify maximum",
+        "Calculate maximum area"
+      ],
+      "points": 5
+    },
+    {
+      "id": 18,
+      "type": "written",
+      "question": "At what point is the tangent to y = x/(1 + x²) horizontal?",
+      "solution": "y' = [(1)(1+x²) - x(2x)]/(1+x²)² = (1-x²)/(1+x²)². Horizontal when y'=0 → 1-x²=0 → x=±1. Points: (1,1/2) and (-1,-1/2).",
+      "steps": [
+        "Find derivative using quotient rule",
+        "Set numerator equal to zero",
+        "Find corresponding y-values"
+      ],
+      "points": 4
+    },
+    {
+      "id": 19,
+      "type": "written",
+      "question": "Prove the Mean Value Theorem for f(x) = x² on [1,3] by finding c explicitly.",
+      "solution": "f(3)=9, f(1)=1. MVT states f'(c)=(9-1)/(3-1)=4. f'(x)=2x → 2c=4 → c=2 ∈ (1,3).",
+      "steps": [
+        "Verify function is continuous and differentiable",
+        "Compute average rate of change",
+        "Find where derivative equals this rate"
+      ],
+      "points": 4
+    },
+    {
+      "id": 20,
+      "type": "written",
+      "question": "Use Rolle's Theorem to show there's a point where derivative is zero for f(x) = x² - 2x + 1 on [0,2].",
+      "solution": "f(0)=1, f(2)=1. f is continuous and differentiable everywhere. By Rolle's Theorem, ∃c ∈ (0,2) where f'(c)=0. Indeed, f'(x)=2x-2 → c=1.",
+      "steps": [
+        "Verify f(a)=f(b)",
+        "Check continuity and differentiability",
+        "Apply Rolle's Theorem",
+        "Find specific point if possible"
+      ],
+      "points": 4
+    },
+    {
+      "id": 21,
+      "type": "written",
+      "question": "Find the equation of the normal line to y = x³ - x at x = 1.",
+      "solution": "At x=1: y=0. y'=3x²-1 → slope at x=1 is 2. Normal slope is -1/2. Equation: y-0=(-1/2)(x-1) → y=(-1/2)x + 1/2.",
+      "steps": [
+        "Find y-coordinate at given x",
+        "Compute derivative and slope of tangent",
+        "Find negative reciprocal for normal slope",
+        "Write point-slope form"
+      ],
+      "points": 5
+    },
+    {
+      "id": 22,
+      "type": "written",
+      "question": "Water is poured into an inverted cone. Radius 5 cm, height 10 cm. Depth rises at 2 cm/min. Find rate of change of volume.",
+      "solution": "V=(1/3)πr²h. By similar triangles, r/h=5/10 → r=h/2. V=(1/3)π(h/2)²h = πh³/12. dV/dt = (πh²/4)(dh/dt). When h=6 cm and dh/dt=2 cm/min: dV/dt = (π36/4)(2) = 18π cm³/min.",
+      "steps": [
+        "Relate radius to height using similar triangles",
+        "Express volume in terms of height only",
+        "Differentiate with respect to t",
+        "Substitute known values"
+      ],
+      "points": 6
+    },
+    {
+      "id": 23,
+      "type": "written",
+      "question": "A function has f'(x)=0 at x=0 and f''(x)=0 at x=0. Give an example of a function with this behavior.",
+      "solution": "Example: f(x) = x³. f'(x) = 3x² → f'(0)=0. f''(x) = 6x → f''(0)=0. This has a saddle point at x=0.",
+      "steps": [
+        "Consider cubic functions",
+        "Verify first and second derivatives",
+        "Confirm behavior at x=0"
+      ],
+      "points": 3
+    },
+    {
+      "id": 24,
+      "type": "written",
+      "question": "Determine intervals of concavity and inflection points for f(x) = x⁴ - 4x².",
+      "solution": "f'(x)=4x³-8x. f''(x)=12x²-8=4(3x²-2). f''(x)=0 at x=±√(2/3). Concave up on (-∞,-√(2/3))∪(√(2/3),∞), concave down on (-√(2/3),√(2/3)). Inflection points at x=±√(2/3).",
+      "steps": [
+        "Find second derivative",
+        "Solve f''(x)=0",
+        "Test intervals for concavity",
+        "Identify inflection points"
+      ],
+      "points": 5
+    },
+    {
+      "id": 25,
+      "type": "written",
+      "question": "A right circular cone is inscribed in a sphere of radius R. Find dimensions of the cone with maximum volume.",
+      "solution": "Let cone have height h and base radius r. Geometry gives r² + (h-R)² = R² → r² = 2Rh - h². Volume V = (1/3)πr²h = (1/3)π(2Rh - h²)h. dV/dh = (1/3)π(4Rh - 3h²) = 0 → h=4R/3. Then r² = 2R(4R/3) - (16R²/9) = (8/9)R² → r=(2√2/3)R. Maximum volume when h=4R/3, r=(2√2/3)R.",
+      "steps": [
+        "Establish geometric relationship",
+        "Express volume in terms of one variable",
+        "Find critical points",
+        "Verify maximum",
+        "Calculate dimensions"
+      ],
+      "points": 7
+    },
+    {
+      "id": 26,
+      "type": "written",
+      "question": "Find the area between y = x² and y = 2x.",
+      "solution": "Intersection points: x²=2x → x=0,2. Area = ∫₀² (2x - x²) dx = [x² - x³/3]₀² = (4 - 8/3) - 0 = 4/3.",
+      "steps": [
+        "Find points of intersection",
+        "Determine which curve is above",
+        "Set up definite integral",
+        "Evaluate integral"
+      ],
+      "points": 5
+    },
+    {
+      "id": 27,
+      "type": "written",
+      "question": "Compute area enclosed by y = sin x and the x-axis between 0 and π.",
+      "solution": "Area = ∫₀^π sin x dx = [-cos x]₀^π = (-cos π) - (-cos 0) = (1) - (-1) = 2.",
+      "steps": [
+        "Identify bounds",
+        "Set up integral",
+        "Evaluate antiderivative",
+        "Compute definite integral"
+      ],
+      "points": 4
+    },
+    {
+      "id": 28,
+      "type": "written",
+      "question": "Find volume of the solid generated by revolving y = x², x = 0 to x = 1, about the x-axis (disk method).",
+      "solution": "Volume = π∫₀¹ (x²)² dx = π∫₀¹ x⁴ dx = π[x⁵/5]₀¹ = π(1/5 - 0) = π/5.",
+      "steps": [
+        "Identify bounds and radius function",
+        "Set up disk method integral",
+        "Evaluate integral"
+      ],
+      "points": 5
+    },
+    {
+      "id": 29,
+      "type": "written",
+      "question": "Use washer method to find volume between y = √x and y = 0 rotated about x-axis, 0 ≤ x ≤ 4.",
+      "solution": "Volume = π∫₀⁴ (√x)² dx = π∫₀⁴ x dx = π[x²/2]₀⁴ = π(8 - 0) = 8π.",
+      "steps": [
+        "Identify bounds and radius function",
+        "Set up washer method integral",
+        "Evaluate integral"
+      ],
+      "points": 5
+    },
+    {
+      "id": 30,
+      "type": "written",
+      "question": "Use cylindrical shells to find volume of region between y = x and y = x² rotated about y-axis.",
+      "solution": "Intersection at x=0,1. Volume = 2π∫₀¹ x(x - x²) dx = 2π∫₀¹ (x² - x³) dx = 2π[x³/3 - x⁴/4]₀¹ = 2π[(1/3 - 1/4) - 0] = 2π(1/12) = π/6.",
+      "steps": [
+        "Find points of intersection",
+        "Set up shells method integral",
+        "Evaluate integral"
+      ],
+      "points": 6
+    },
+    {
+      "id": 31,
+      "type": "written",
+      "question": "Find arc length of y = (1/3)x^(3/2) from x = 0 to x = 4.",
+      "solution": "y' = (1/2)x^(1/2). Arc length = ∫₀⁴ √(1 + [(1/2)x^(1/2)]²) dx = ∫₀⁴ √(1 + x/4) dx = ∫₀⁴ (1/2)√(4 + x) dx = (1/2)[(2/3)(4+x)^(3/2)]₀⁴ = (1/3)(8^(3/2) - 4^(3/2)) = (1/3)(16√2 - 8) = (16√2 - 8)/3.",
+      "steps": [
+        "Find derivative",
+        "Set up arc length integral",
+        "Simplify integrand",
+        "Evaluate integral"
+      ],
+      "points": 6
+    },
+    {
+      "id": 32,
+      "type": "written",
+      "question": "Find surface area generated by revolving y = √x from x = 0 to x = 1 about the x-axis.",
+      "solution": "y' = 1/(2√x). Surface area = 2π∫₀¹ √x √(1 + 1/(4x)) dx = 2π∫₀¹ √(x + 1/4) dx = 2π[(2/3)(x + 1/4)^(3/2)]₀¹ = (4π/3)((5/4)^(3/2) - (1/4)^(3/2)) = (4π/3)((5√5)/8 - 1/8) = (π/6)(5√5 - 1).",
+      "steps": [
+        "Find derivative",
+        "Set up surface area integral",
+        "Simplify integrand",
+        "Evaluate integral"
+      ],
+      "points": 6
+    },
+    {
+      "id": 33,
+      "type": "written",
+      "question": "Compute work required to pump water from a tank 5 m deep, radius 3 m, full of water. (ρ = 1000 kg/m³).",
+      "solution": "Work = ∫₀⁵ ρgπr²(5-y) dy = 1000·9.8·π·9 ∫₀⁵ (5-y) dy = 88200π [5y - y²/2]₀⁵ = 88200π (25 - 12.5) = 88200π·12.5 ≈ 3.46×10⁶ J.",
+      "steps": [
+        "Set up work integral for thin layers",
+        "Include gravitational potential energy",
+        "Evaluate definite integral"
+      ],
+      "points": 6
+    },
+    {
+      "id": 34,
+      "type": "written",
+      "question": "Find the center of mass of a uniform thin plate bounded by y = x and y = x² between x = 0 and x = 1.",
+      "solution": "Area A = ∫₀¹ (x - x²) dx = 1/6. x̄ = (1/A)∫₀¹ x(x - x²) dx = 6 ∫₀¹ (x² - x³) dx = 6[1/3 - 1/4] = 1/2. ȳ = (1/(2A))∫₀¹ (x² - x⁴) dx = 3[1/3 - 1/5] = 2/5. Center of mass at (1/2, 2/5).",
+      "steps": [
+        "Calculate total area",
+        "Compute x-coordinate of centroid",
+        "Compute y-coordinate of centroid"
+      ],
+      "points": 6
+    },
+    {
+      "id": 35,
+      "type": "written",
+      "question": "A dam has vertical wall shaped as y = 4 - x² (x in meters). Find hydrostatic force if water is up to y = 4. (ρ = 1000 kg/m³, g = 9.8 m/s²).",
+      "solution": "At y=4-x², depth is 4-y = x². Force = ρg ∫_{-2}^2 x²·2√(4-x²) dx = 2ρg ∫₀² x²√(4-x²) dx. Using trig substitution x=2sinθ: = 2ρg ∫ (4sin²θ)(2cosθ)(2cosθ dθ) = 32ρg ∫ sin²θ cos²θ dθ = 8ρg ∫ sin²(2θ) dθ = 4ρg ∫ (1-cos4θ) dθ = 4ρg[θ - (1/4)sin4θ]. Evaluated gives 4ρg·π/2 = 2πρg ≈ 61575 N.",
+      "steps": [
+        "Express depth as function of x",
+        "Set up pressure integral",
+        "Use symmetry and substitution",
+        "Evaluate trigonometric integral"
+      ],
+      "points": 7
+    },
+    {
+      "id": 36,
+      "type": "written",
+      "question": "Evaluate ∫₀² (2x - x²) dx and interpret as area.",
+      "solution": "∫₀² (2x - x²) dx = [x² - x³/3]₀² = (4 - 8/3) - 0 = 4/3. This represents the area between y=2x-x² and y=0 from x=0 to x=2.",
+      "steps": [
+        "Find antiderivative",
+        "Evaluate at bounds",
+        "Interpret geometrically"
+      ],
+      "points": 4
+    },
+    {
+      "id": 37,
+      "type": "written",
+      "question": "Find average value of f(x) = x² on [0,2].",
+      "solution": "Average value = (1/(2-0))∫₀² x² dx = (1/2)[x³/3]₀² = (1/2)(8/3) = 4/3.",
+      "steps": [
+        "Compute interval length",
+        "Evaluate integral of function",
+        "Divide integral by interval length"
+      ],
+      "points": 3
+    },
+    {
+      "id": 38,
+      "type": "written",
+      "question": "Using the Fundamental Theorem of Calculus, compute derivative of F(x) = ∫₁ˣ √(1 + t³) dt.",
+      "solution": "By FTC part 1: F'(x) = √(1 + x³).",
+      "steps": [
+        "Apply Fundamental Theorem of Calculus",
+        "Differentiate integral function"
+      ],
+      "points": 3
+    },
+    {
+      "id": 39,
+      "type": "written",
+      "question": "Evaluate ∫₀^π |sin x| dx.",
+      "solution": "Since sin x ≥ 0 on [0,π], ∫₀^π |sin x| dx = ∫₀^π sin x dx = [-cos x]₀^π = (-cos π) - (-cos 0) = 1 + 1 = 2.",
+      "steps": [
+        "Analyze sign of function on interval",
+        "Remove absolute value",
+        "Evaluate integral"
+      ],
+      "points": 4
+    },
+    {
+      "id": 40,
+      "type": "written",
+      "question": "Find area of region bounded by y = x³ and y = x.",
+      "solution": "Intersection points: x³=x → x=0,±1. By symmetry: Area = 2∫₀¹ (x - x³) dx = 2[x²/2 - x⁴/4]₀¹ = 2(1/2 - 1/4) = 1/2.",
+      "steps": [
+        "Find all intersection points",
+        "Set up integral for one symmetric region",
+        "Multiply by symmetry factor",
+        "Evaluate integral"
+      ],
+      "points": 5
+    },
+    {
+      "id": 41,
+      "type": "written",
+      "question": "Derive the formula for the volume of a sphere of radius R using disks.",
+      "solution": "Equation of circle: x² + y² = R². Volume = π∫_{-R}^R (R² - x²) dx = π[R²x - x³/3]_{-R}^R = π[(R³ - R³/3) - (-R³ + R³/3)] = π(4R³/3) = (4/3)πR³.",
+      "steps": [
+        "Establish equation of generating circle",
+        "Set up disk method integral",
+        "Evaluate symmetric integral",
+        "Simplify result"
+      ],
+      "points": 5
+    },
+    {
+      "id": 42,
+      "type": "written",
+      "question": "Find work done stretching a spring 5 m if k = 200 N/m (Hooke's Law).",
+      "solution": "Work = ∫₀⁵ kx dx = k[x²/2]₀⁵ = 200(25/2) = 2500 J.",
+      "steps": [
+        "Set up Hooke's Law integral",
+        "Evaluate definite integral"
+      ],
+      "points": 3
+    },
+    {
+      "id": 43,
+      "type": "written",
+      "question": "A cable 30 m long weighs 2 N/m. Find work to lift it to the top of a building.",
+      "solution": "Work = ∫₀³⁰ (2)(30 - y) dy = 2[30y - y²/2]₀³⁰ = 2(900 - 450) = 900 J.",
+      "steps": [
+        "Set up work integral for variable length",
+        "Evaluate definite integral"
+      ],
+      "points": 4
+    },
+    {
+      "id": 44,
+      "type": "written",
+      "question": "Find centroid of region bounded by y = √x, y = 0, x = 1.",
+      "solution": "Area A = ∫₀¹ √x dx = 2/3. x̄ = (1/A)∫₀¹ x√x dx = (3/2)[(2/5)x^(5/2)]₀¹ = 3/5. ȳ = (1/(2A))∫₀¹ x dx = (3/4)[x²/2]₀¹ = 3/8. Centroid at (3/5, 3/8).",
+      "steps": [
+        "Calculate total area",
+        "Compute x-coordinate of centroid",
+        "Compute y-coordinate of centroid"
+      ],
+      "points": 5
+    },
+    {
+      "id": 45,
+      "type": "written",
+      "question": "A tank shaped like an inverted cone, height 10 m, radius 5 m. Find work to pump water to the top when full.",
+      "solution": "By similar triangles, radius at height y is r = y/2. Work = ∫₀^10 ρgπ(y/2)²(10-y) dy = ρgπ/4 ∫₀^10 y²(10-y) dy = 250πρg ≈ 7.70×10⁶ J.",
+      "steps": [
+        "Establish radius-height relationship",
+        "Set up work integral",
+        "Evaluate definite integral"
+      ],
+      "points": 6
+    },
+    {
+      "id": 46,
+      "type": "written",
+      "question": "Use substitution to evaluate ∫ x√(1 + x²) dx.",
+      "solution": "Let u = 1 + x² → du = 2x dx. Integral = (1/2)∫ √u du = (1/2)(2/3)u^(3/2) + C = (1/3)(1 + x²)^(3/2) + C.",
+      "steps": [
+        "Choose appropriate substitution",
+        "Change variables",
+        "Evaluate simpler integral",
+        "Substitute back"
+      ],
+      "points": 4
+    },
+    {
+      "id": 47,
+      "type": "written",
+      "question": "Find volume of the solid generated by revolving the region between y = cos x and y = 0, x = 0 to x = π/2, about the x-axis.",
+      "solution": "Volume = π∫₀^{π/2} cos²x dx = π∫₀^{π/2} (1 + cos2x)/2 dx = (π/2)[x + (sin2x)/2]₀^{π/2} = (π/2)(π/2) = π²/4.",
+      "steps": [
+        "Set up disk method integral",
+        "Use trigonometric identity",
+        "Evaluate integral"
+      ],
+      "points": 5
+    },
+    {
+      "id": 48,
+      "type": "written",
+      "question": "Compute length of curve y = ln(cos x), x ∈ [0,π/4].",
+      "solution": "y' = -tan x. Arc length = ∫₀^{π/4} √(1 + tan²x) dx = ∫₀^{π/4} sec x dx = [ln|sec x + tan x|]₀^{π/4} = ln(√2 + 1) - ln(1) = ln(1 + √2).",
+      "steps": [
+        "Find derivative",
+        "Set up arc length integral",
+        "Simplify integrand",
+        "Evaluate integral"
+      ],
+      "points": 5
+    },
+    {
+      "id": 49,
+      "type": "written",
+      "question": "A thin rod of length L has density ρ(x) = x. Find its center of mass.",
+      "solution": "Mass m = ∫₀^L x dx = L²/2. x̄ = (1/m)∫₀^L x·x dx = (2/L²)[x³/3]₀^L = (2/L²)(L³/3) = (2/3)L. Center of mass at (2/3)L from light end.",
+      "steps": [
+        "Calculate total mass",
+        "Compute moment about origin",
+        "Divide moment by mass"
+      ],
+      "points": 5
+    },
+    {
+      "id": 50,
+      "type": "written",
+      "question": "Find volume using shells for region between y = eˣ, y = 0, x = 0 to x = 1 rotated about the y-axis.",
+      "solution": "Volume = 2π∫₀¹ xeˣ dx. Using integration by parts: u=x, dv=eˣdx → du=dx, v=eˣ. = 2π[xeˣ - eˣ]₀¹ = 2π[(e - e) - (0 - 1)] = 2π.",
+      "steps": [
+        "Set up shells method integral",
+        "Apply integration by parts",
+        "Evaluate definite integral"
+      ],
+      "points": 6
     }
-]
+  ]
+}
